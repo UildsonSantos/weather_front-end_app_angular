@@ -14,4 +14,14 @@
       <label for="">Pesquisar com <i>autocomplet</i></label>
     </div>
   </div>
+  <uss-loader *ngIf="loading$ | async"></uss-loader>
+
+  <div *ngIf="!(loading$ | async) && !(error$ | async) && !! cityWeather">
+    <uss-current-weather [cityWeather]="cityWeather"
+                          (toggleBookmark)="onToggleBookmark()"></uss-current-weather>
+  </div>
+
+  <div *ngIf="!(loading$ | async) && error$ | async">
+    <a>Tentar novamente</a>
+  </div>
 </div>
