@@ -7,18 +7,22 @@
       <div>
         <input class="form-control" [formControl]="searchControl">
         <button class="btn btn-dark"
-                [disabled]="!searchControl.valid" (click)="doSearch()">Pesquisar</button>
+                [disabled]="!searchControl.valid"
+                (click)="doSearch()">Pesquisar</button>
       </div>
     </div>
     <div class="form-group">
       <label for="">Pesquisar com <i>autocomplet</i></label>
+      <uss-cities-typeahead [formControl]="searchControlWithAutocomplete"></uss-cities-typeahead>
     </div>
   </div>
   <uss-loader *ngIf="loading$ | async"></uss-loader>
 
-  <div *ngIf="!(loading$ | async) && !(error$ | async) && !! cityWeather">
+  <div *ngIf="!(loading$ | async) && !(error$ | async) && !!cityWeather">
     <uss-current-weather [cityWeather]="cityWeather"
-                          (toggleBookmark)="onToggleBookmark()"></uss-current-weather>
+                         [isFavorite]="isCurrentFavorite$ | async"
+                         [unit]="unit$ | async"
+                         (toggleBookmark)="onToggleBookmark()"></uss-current-weather>
   </div>
 
   <div *ngIf="!(loading$ | async) && error$ | async">

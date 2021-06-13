@@ -1,5 +1,7 @@
+import { Units } from './../../models/units.enum';
 import { Weather } from './../../models/weather.model';
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
+import { unitToSymbol } from '../../utils/units.utils';
 
 @Component({
   selector: 'uss-detailed-weather',
@@ -11,8 +13,13 @@ export class DetailedWeatherComponent {
 
 
   @Input() weather: Weather;
+  @Input() unit: Units;
 
   get weatherIcon(): string {
     return `http://openweathermap.org/img/wn/${ this.weather.icon }@2x.png`;
+  }
+
+  get unitSymbol(): string {
+    return unitToSymbol(this.unit);
   }
 }
